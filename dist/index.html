@@ -3,61 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://bintahaassociates.github.io/bintaha-crm-v2/logo.png" />
+    <link rel="icon" type="image/png" href="https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
-    <title>Bin Taha Associates — Developer Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>Bin Taha Associates — Executive CRM</title>
 
+    <!-- Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script type="module" crossorigin src="./assets/index-DEsWyKRV.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BqdMV5Bv.css">
+
+    <!-- App Assets -->
+    <script type="module" crossorigin src="./dist/assets/index-DEsWyKRV.js"></script>
+    <link rel="stylesheet" crossorigin href="./dist/assets/index-BqdMV5Bv.css">
 
     <style>
-      /* 1. 3D 360-Degree Continuous Rotating Eagle */
+      /* 1. 3D 360-Degree Continuous Rotating Monogram */
       @keyframes spinEagle3D {
-        0% { transform: perspective(800px) rotateY(0deg); }
-        50% { transform: perspective(800px) rotateY(180deg) scale(1.08); }
-        100% { transform: perspective(800px) rotateY(360deg); }
+        0% { transform: perspective(900px) rotateY(0deg); }
+        50% { transform: perspective(900px) rotateY(180deg) scale(1.05); }
+        100% { transform: perspective(900px) rotateY(360deg); }
       }
 
       .eagle-rotate-3d {
-        height: 68px !important;
+        height: 48px !important;
         width: auto !important;
         object-fit: contain !important;
-        filter: drop-shadow(0 0 16px rgba(234, 179, 8, 0.75)) drop-shadow(0 4px 10px rgba(0,0,0,0.9)) !important;
+        filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.75)) drop-shadow(0 3px 6px rgba(0,0,0,0.9)) !important;
         animation: spinEagle3D 7s infinite linear !important;
         transform-style: preserve-3d !important;
         display: inline-block !important;
+        margin-right: 12px !important;
+        flex-shrink: 0 !important;
       }
 
-      /* 2. Developer Luxury Styling & Glow */
+      /* 2. Professional Header Styling */
       header {
-        background: radial-gradient(circle at top left, rgba(28, 25, 23, 0.98), rgba(9, 9, 11, 0.98)) !important;
-        border-bottom: 2px solid rgba(234, 179, 8, 0.35) !important;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85) !important;
+        background: radial-gradient(circle at top left, rgba(22, 22, 26, 0.98), rgba(10, 10, 12, 0.98)) !important;
+        border-bottom: 1.5px solid rgba(212, 175, 55, 0.35) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85) !important;
       }
 
-      /* Gold Luxury Brand Title */
       .brand-title-luxury {
         font-family: 'Cinzel', serif !important;
-        background: linear-gradient(135deg, #FFF9D2 0%, #EAB308 50%, #92400E 100%) !important;
+        background: linear-gradient(135deg, #FFF6C5 0%, #D4AF37 50%, #996D0F 100%) !important;
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
         font-weight: 900 !important;
-        font-size: 1.25rem !important;
+        font-size: 1.28rem !important;
         letter-spacing: 1.2px !important;
-        text-shadow: 0 0 20px rgba(234, 179, 8, 0.3) !important;
+        text-shadow: 0 2px 10px rgba(212, 175, 55, 0.25) !important;
       }
 
-      /* Developer Live Status Ribbon */
+      /* 3. Secure Confidential Developer Telemetry Ribbon */
       #dev-status-ribbon {
         width: 100%;
-        background: linear-gradient(90deg, rgba(20, 20, 22, 0.95), rgba(30, 27, 20, 0.95), rgba(20, 20, 22, 0.95));
-        border-bottom: 1px solid rgba(234, 179, 8, 0.3);
-        padding: 7px 20px;
-        font-size: 12px;
-        color: #d1d5db;
+        background: #090a0f;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        padding: 7px 24px;
+        font-size: 11.5px;
+        color: #9ca3af;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -66,40 +70,40 @@
 
       .pulse-green {
         display: inline-block;
-        width: 8px;
-        height: 8px;
-        background: #22c55e;
+        width: 7px;
+        height: 7px;
+        background: #10b981;
         border-radius: 50%;
-        box-shadow: 0 0 10px #22c55e;
-        margin-right: 8px;
+        box-shadow: 0 0 8px #10b981;
+        margin-right: 7px;
         animation: pulseDot 1.5s infinite;
       }
 
       @keyframes pulseDot {
         0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.35; transform: scale(0.8); }
+        50% { opacity: 0.35; transform: scale(0.85); }
       }
 
-      /* Cards Glow Border */
-      div[class*="rounded-xl"] {
-        border: 1px solid rgba(234, 179, 8, 0.22) !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+      /* 4. Rich Cards & Dashboard Depth */
+      [class*="bg-surface"], .bg-surface-elevated, div[class*="rounded-xl"] {
+        border: 1px solid rgba(212, 175, 55, 0.22) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
       }
     </style>
   </head>
-  <body class="bg-[#090a0f]">
-    <!-- Top Developer Live Telemetry Bar -->
+  <body class="bg-[#08090c]">
+    <!-- Top Secure Telemetry Bar (No confidential locations revealed) -->
     <div id="dev-status-ribbon">
       <div>
         <span class="pulse-green"></span>
-        <b style="color: #fde047;">WATCHDOG CORE: LIVE</b>
+        <b style="color: #f5d76e; font-weight: 600;">BIN TAHA WATCHDOG: ACTIVE</b>
         <span style="color: #4b5563; margin: 0 8px;">|</span>
-        <span>Node: Supabase (Tokyo AP-1)</span>
+        <span>Secure Protocol: Encrypted Node AP-1</span>
       </div>
       <div>
-        <span>Strategic Asset: <b style="color: #fde047;">870 Kanal Raiwind Rd Corridor</b></span>
+        <span>Portfolio: <b style="color: #e5e7eb;">Strategic Land Bank (Master Vault)</b></span>
         <span style="color: #4b5563; margin: 0 8px;">|</span>
-        <span style="color: #22c55e; font-weight: 600;">Status: Secure Pipeline</span>
+        <span style="color: #10b981; font-weight: 600;">Status: Confidential</span>
       </div>
     </div>
 
@@ -109,62 +113,69 @@
       (function() {
         const SUPABASE_URL = "https://ajrvlrvnxpatbculnwil.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_ndHx-NyVhYxvDwfvBnK2iA_woPQhjJi";
-        const LOGO_URL = "https://bintahaassociates.github.io/bintaha-crm-v2/logo.png";
+        const LOGO_URL = "https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png";
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-        function apply3DLayout() {
-          // 1. Logo replace aur 3D animation lagana
-          const headerContainer = document.querySelector('header a, nav a, header .flex.items-center:first-child');
-          if (headerContainer && !headerContainer.dataset.eagleActive) {
-            headerContainer.style.overflow = 'visible';
+        function cleanAndPerfectUI() {
+          // 1. ہیڈر برانڈ ایریا کو مکمل درست کریں
+          const brandLink = document.querySelector('header a, nav a, header .flex.items-center:first-child');
+          if (brandLink) {
+            brandLink.style.display = 'inline-flex';
+            brandLink.style.alignItems = 'center';
+            brandLink.style.textDecoration = 'none';
 
-            const oldImages = headerContainer.querySelectorAll('img, svg');
-            oldImages.forEach(el => el.remove());
+            // سارے پرانے خالی ڈبے، مسنگ امیجز اور SVG ہٹائیں
+            const oldTrash = brandLink.querySelectorAll('svg, img:not(.eagle-rotate-3d), [class*="rounded-lg"], [class*="bg-primary"], [class*="w-10"], [class*="h-10"]');
+            oldTrash.forEach(function(el) {
+              el.remove();
+            });
 
-            const rotatingEagle = document.createElement('img');
-            rotatingEagle.src = LOGO_URL;
-            rotatingEagle.className = 'eagle-rotate-3d';
-            rotatingEagle.alt = 'Bin Taha Associates';
-
-            headerContainer.prepend(rotatingEagle);
-            headerContainer.dataset.eagleActive = "true";
+            // 3D عقاب لگائیں اگر موجود نہیں
+            if (!brandLink.querySelector('.eagle-rotate-3d')) {
+              const eagleImg = document.createElement('img');
+              eagleImg.src = LOGO_URL;
+              eagleImg.className = 'eagle-rotate-3d';
+              eagleImg.alt = 'Bin Taha Associates';
+              brandLink.prepend(eagleImg);
+            }
           }
 
-          // 2. Titles ko Luxury Gold Text dena
-          const headers = document.querySelectorAll('header span, header h1, header h2');
-          headers.forEach(el => {
+          // 2. ٹائٹل کو پریمیم لک دینا
+          const titles = document.querySelectorAll('header span, header h1, header h2');
+          titles.forEach(function(el) {
             if (el.textContent.includes('Bin Taha')) {
               el.className = 'brand-title-luxury';
             }
           });
 
-          // 3. Dummy Fatima ko badal kar Master Name rakhna
+          // 3. ڈمی نام ہٹا کر آپ کا اصل نام سیٹ رکھنا
           const textNodes = document.querySelectorAll('h1, h2, span, p');
-          textNodes.forEach(node => {
+          textNodes.forEach(function(node) {
             if (node.textContent.includes('Fatima')) {
               node.textContent = node.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
             }
           });
         }
 
-        // Supabase Watchdog Activity Log
+        // واچ ڈاگ ایکٹیویٹی لاگنگ
         async function logWatchdog() {
           if (!supabase) return;
           try {
             await supabase.from('watchdog_logs').insert([{
               device_info: `${navigator.userAgent} | ${window.screen.width}x${window.screen.height}`,
-              action_type: 'portal_3d_developer_active',
+              action_type: 'executive_portal_active',
               details: { 
                 timestamp: new Date().toISOString(),
-                page: window.location.href
+                page: window.location.href,
+                status: 'Confidential Session'
               }
             }]);
           } catch(e) {}
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-          setTimeout(apply3DLayout, 200);
-          setInterval(apply3DLayout, 1000);
+        window.addEventListener('DOMContentLoaded', function() {
+          cleanAndPerfectUI();
+          setInterval(cleanAndPerfectUI, 800);
           logWatchdog();
         });
       })();
