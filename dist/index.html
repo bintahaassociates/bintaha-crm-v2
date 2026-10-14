@@ -6,8 +6,8 @@
     <link rel="icon" type="image/png" href="https://bintahaassociates.github.io/bintaha-crm-v2/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <title>Bin Taha Associates — Elite Agent Portal & Watchdog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <title>Bin Taha Associates — Elite Developer & Agent Portal</title>
 
     <!-- Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -17,44 +17,122 @@
     <link rel="stylesheet" crossorigin href="./assets/index-BqdMV5Bv.css">
 
     <style>
-      /* لگژری گولڈ برانڈنگ اور امبوس اسٹائلنگ */
-      .brand-eagle-logo {
-        height: 60px !important;
+      /* Developer Grade Luxury Dark Theme & Background */
+      body {
+        background-color: #060709 !important;
+        background-image: 
+          radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+          radial-gradient(circle at 85% 85%, rgba(180, 140, 30, 0.05) 0%, transparent 45%),
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px) !important;
+        background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+      }
+
+      /* 360 Degree Spinning Golden Eagle Monogram */
+      .eagle-360-wrapper {
+        perspective: 1000px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .eagle-360-logo {
+        height: 64px !important;
         width: auto !important;
-        max-width: none !important;
         object-fit: contain !important;
-        filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.45)) drop-shadow(0 2px 4px rgba(0,0,0,0.8)) !important;
-        transition: transform 0.3s ease, filter 0.3s ease;
-        display: inline-block !important;
+        filter: drop-shadow(0 0 14px rgba(245, 200, 60, 0.65)) drop-shadow(0 4px 8px rgba(0,0,0,0.9)) !important;
+        animation: spinEagle3D 8s infinite linear;
+        transform-style: preserve-3d;
+        cursor: pointer;
       }
-      .brand-eagle-logo:hover {
-        transform: scale(1.06);
-        filter: drop-shadow(0 0 16px rgba(245, 215, 110, 0.75)) !important;
+
+      .eagle-360-logo:hover {
+        animation-duration: 2.5s;
+        filter: drop-shadow(0 0 25px rgba(255, 220, 80, 0.95)) !important;
       }
-      .brand-title-gold {
+
+      @keyframes spinEagle3D {
+        0% {
+          transform: rotateY(0deg);
+        }
+        50% {
+          transform: rotateY(180deg) scale(1.05);
+        }
+        100% {
+          transform: rotateY(360deg);
+        }
+      }
+
+      /* Header Glassmorphism */
+      header {
+        background: rgba(10, 11, 14, 0.85) !important;
+        backdrop-filter: blur(16px) saturate(180%) !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.28) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
+      }
+
+      /* Luxury Gold Brand Title */
+      .brand-gold-text {
         font-family: 'Cinzel', serif !important;
-        background: linear-gradient(135deg, #FFF1B0 0%, #D4AF37 50%, #AA7C11 100%);
+        background: linear-gradient(135deg, #FFF6C5 0%, #D4AF37 45%, #996D0F 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 800 !important;
-        letter-spacing: 1px;
-        text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+        letter-spacing: 1.5px;
+        text-shadow: 0 2px 12px rgba(212, 175, 55, 0.3);
       }
-      /* ہیڈر کی امیرانہ گلاس لک */
-      header {
-        background: linear-gradient(180deg, rgba(20, 20, 22, 0.95) 0%, rgba(12, 12, 14, 0.98) 100%) !important;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
-        backdrop-filter: blur(10px) !important;
+
+      /* Luxury Cards Styling */
+      [class*="bg-surface"], .bg-surface-elevated, div[class*="rounded-xl"] {
+        background: linear-gradient(145deg, rgba(18, 20, 24, 0.9) 0%, rgba(12, 13, 16, 0.95) 100%) !important;
+        border: 1px solid rgba(212, 175, 55, 0.2) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+        transition: all 0.3s ease !important;
       }
-      /* کارڈز اور ڈیش بورڈ پر گولڈن ایکسنٹ */
-      .bg-surface-elevated, [class*="bg-surface"] {
-        border: 1px solid rgba(212, 175, 55, 0.15) !important;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
+
+      [class*="bg-surface"]:hover, div[class*="rounded-xl"]:hover {
+        border-color: rgba(212, 175, 55, 0.45) !important;
+        box-shadow: 0 12px 30px rgba(212, 175, 55, 0.12) !important;
+      }
+
+      /* Developer Live Telemetry Banner */
+      #dev-telemetry-bar {
+        background: rgba(12, 14, 18, 0.95);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 8px;
+        padding: 8px 16px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        color: #d1d5db;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      }
+
+      .telemetry-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .live-dot {
+        height: 8px;
+        width: 8px;
+        background-color: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #10b981;
+        animation: pulseLive 1.5s infinite;
+      }
+
+      @keyframes pulseLive {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.85); }
       }
     </style>
   </head>
-  <body class="bg-[#0b0c0e]">
+  <body>
     <div id="root"></div>
 
     <script>
@@ -64,67 +142,92 @@
         const LOGO_URL = "https://bintahaassociates.github.io/bintaha-crm-v2/logo.png";
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-        function upgradeBrandingLayout() {
+        function injectDeveloperUI() {
           document.title = "Bin Taha Associates — Elite Portal";
 
-          // مین ہیڈر برانڈ ایریا کو پکڑیں
+          // 1. 360 Spin Eagle Logo Setup
           const brandArea = document.querySelector('header a, nav a, header .flex.items-center:first-child');
           if (brandArea && !brandArea.dataset.eagleMounted) {
-            brandArea.style.display = 'flex';
-            brandArea.style.alignItems = 'center';
             brandArea.style.overflow = 'visible';
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'eagle-360-wrapper';
+
+            const eagleImg = document.createElement('img');
+            eagleImg.src = LOGO_URL;
+            eagleImg.className = 'eagle-360-logo';
+            eagleImg.alt = 'Bin Taha Associates Eagle';
+            wrapper.appendChild(eagleImg);
 
             const oldSvg = brandArea.querySelector('svg');
             const oldImg = brandArea.querySelector('img');
-            
-            const eagleImg = document.createElement('img');
-            eagleImg.src = LOGO_URL;
-            eagleImg.className = 'brand-eagle-logo';
-            eagleImg.alt = 'Bin Taha Associates';
+            if (oldSvg) oldSvg.remove();
+            if (oldImg) oldImg.remove();
 
-            if (oldSvg) {
-              oldSvg.parentNode.replaceChild(eagleImg, oldSvg);
-            } else if (oldImg) {
-              oldImg.parentNode.replaceChild(eagleImg, oldImg);
-            } else {
-              brandArea.prepend(eagleImg);
-            }
-
+            brandArea.prepend(wrapper);
             brandArea.dataset.eagleMounted = "true";
           }
 
-          // فونٹس اور ناموں کو رائل گولڈ ٹچ دینا
-          const logoTexts = document.querySelectorAll('header span, header h1, header h2');
-          logoTexts.forEach(txt => {
-            if (txt.textContent.includes('Bin Taha')) {
-              txt.classList.add('brand-title-gold');
+          // 2. Titles ko Golden Luxury Text dena
+          const headers = document.querySelectorAll('header span, header h1, header h2');
+          headers.forEach(el => {
+            if (el.textContent.includes('Bin Taha')) {
+              el.classList.add('brand-gold-text');
             }
           });
 
-          const headings = document.querySelectorAll('h1, h2, span, p');
-          headings.forEach(el => {
-            if (el.textContent.includes('Fatima')) {
-              el.textContent = el.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
+          // 3. Developer Telemetry Bar (System Diagnostics)
+          const mainContainer = document.querySelector('main, .max-w-6xl, #root > div');
+          if (mainContainer && !document.getElementById('dev-telemetry-bar')) {
+            const bar = document.createElement('div');
+            bar.id = 'dev-telemetry-bar';
+            bar.innerHTML = `
+              <div class="telemetry-tag">
+                <span class="live-dot"></span>
+                <span style="font-weight: 600; color: #f5d76e;">WATCHDOG CORE: ACTIVE</span>
+                <span style="color: #6b7280;">|</span>
+                <span>DB: Supabase (Tokyo Node)</span>
+              </div>
+              <div class="telemetry-tag" style="gap: 16px;">
+                <span>Portfolio: <b>870 Kanal Raiwind Rd Corridor</b></span>
+                <span style="color: #6b7280;">|</span>
+                <span style="color: #10b981;">Role: Master Developer / Super Admin</span>
+              </div>
+            `;
+            mainContainer.prepend(bar);
+          }
+
+          // Fatima ko replace karke Master Name rakhna
+          const textNodes = document.querySelectorAll('h1, h2, span, p');
+          textNodes.forEach(node => {
+            if (node.textContent.includes('Fatima')) {
+              node.textContent = node.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
             }
           });
         }
 
-        // واچ ڈاگ ایکٹیویٹی لاگنگ
+        // Supabase Watchdog Telemetry
         async function logWatchdogActivity(actionType) {
           if (!supabase) return;
           try {
             await supabase.from('watchdog_logs').insert([{
-              device_info: `${navigator.userAgent} | ${window.screen.width}x${window.screen.height}`,
+              device_info: `${navigator.userAgent} | Res: ${window.screen.width}x${window.screen.height}`,
               action_type: actionType,
-              details: { timestamp: new Date().toISOString(), url: window.location.href }
+              details: { 
+                timestamp: new Date().toISOString(), 
+                route: window.location.href,
+                status: 'Executive Portal Loaded'
+              }
             }]);
-          } catch(e) {}
+          } catch (e) {
+            console.error(e);
+          }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-          setTimeout(upgradeBrandingLayout, 300);
-          setInterval(upgradeBrandingLayout, 1200);
-          logWatchdogActivity('portal_lux_load');
+          setTimeout(injectDeveloperUI, 400);
+          setInterval(injectDeveloperUI, 1200);
+          logWatchdogActivity('portal_lux_dev_load');
         });
       })();
     </script>
