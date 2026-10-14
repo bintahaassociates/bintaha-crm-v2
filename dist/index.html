@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="./logo.png" />
+    <link rel="icon" type="image/png" href="https://bintahaassociates.github.io/bintaha-crm-v2/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -24,34 +24,36 @@
       (function() {
         const SUPABASE_URL = "https://ajrvlrvnxpatbculnwil.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_ndHx-NyVhYxvDwfvBnK2iA_woPQhjJi";
+        const LOGO_URL = "https://bintahaassociates.github.io/bintaha-crm-v2/logo.png";
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-        // 1. صرف مین ہیڈر پر گولڈن ایگل لوگو لگانا
+        // 1. برانڈنگ: صرف مین ہیڈر پر سنہری عقاب کا لوگو لگانا
         function applyBranding() {
           document.title = "Bin Taha Associates — Agent Portal";
 
-          // صرف ٹاپ لیفٹ مین برانڈ کنٹینر کو پکڑیں
-          const brandContainer = document.querySelector('header .flex.items-center, nav .flex.items-center');
-          if (brandContainer && !brandContainer.dataset.logoFixed) {
-            const firstSvg = brandContainer.querySelector('svg');
-            if (firstSvg) {
+          // صرف اوپر بائیں جانب کے مین لوگو ایریا کو منتخب کریں
+          const topLogoContainer = document.querySelector('header a, nav a, header .flex.items-center:first-child');
+          if (topLogoContainer && !topLogoContainer.dataset.logoDone) {
+            const oldSvg = topLogoContainer.querySelector('svg');
+            if (oldSvg) {
               const img = document.createElement('img');
-              img.src = './logo.png';
-              img.style.height = '44px';
+              img.src = LOGO_URL;
+              img.style.height = '42px';
               img.style.width = 'auto';
-              img.style.marginRight = '12px';
+              img.style.marginRight = '10px';
               img.style.display = 'inline-block';
+              img.style.objectFit = 'contain';
               img.alt = 'Bin Taha Associates';
-              firstSvg.parentNode.replaceChild(img, firstSvg);
-              brandContainer.dataset.logoFixed = "true";
+              oldSvg.parentNode.replaceChild(img, oldSvg);
+              topLogoContainer.dataset.logoDone = "true";
             }
           }
 
-          // نام درست رکھنا
-          const headings = document.querySelectorAll('h1, h2, span');
-          headings.forEach(el => {
-            if (el.textContent.includes('Fatima')) {
-              el.textContent = el.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
+          // نام کی درستگی
+          const textNodes = document.querySelectorAll('h1, h2, span');
+          textNodes.forEach(node => {
+            if (node.textContent.includes('Fatima')) {
+              node.textContent = node.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
             }
           });
         }
@@ -72,7 +74,7 @@
               latitude = pos.coords.latitude;
               longitude = pos.coords.longitude;
             } catch (err) {
-              // Location optional if agent hasn't allowed yet
+              // Location optional if not enabled yet
             }
           }
 
@@ -88,13 +90,14 @@
                 ...extraData
               }
             }]);
+            console.log("Watchdog data saved successfully.");
           } catch (e) {
-            console.error("Watchdog logging:", e);
+            console.error("Watchdog logging error:", e);
           }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-          setTimeout(applyBranding, 500);
+          setTimeout(applyBranding, 400);
           setInterval(applyBranding, 1500);
           logWatchdogActivity('portal_init', { user: 'Taha Mobeen Bhutta' });
         });
