@@ -3,14 +3,101 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="./logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>Bin Taha Associates CRM</title>
+    <title>Bin Taha Associates — Agent Portal & Watchdog</title>
+
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- App Assets -->
     <script type="module" crossorigin src="./assets/index-DEsWyKRV.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BqdMV5Bv.css">
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Bin Taha Associates Branding & Watchdog Mobile Tracking Engine -->
+    <script>
+      (function() {
+        const SUPABASE_URL = "https://ajrvlrvnxpatbculnwil.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_ndHx-NyVhYxvDwfvBnK2iA_woPQhjJi";
+        const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+        // 1. برانڈنگ انجیکٹر (سنہری عقاب لوگو اور اصل نام)
+        function applyBranding() {
+          document.title = "Bin Taha Associates — Agent Portal";
+
+          const targetIcons = document.querySelectorAll('header svg, nav svg, .lucide-building, .lucide-building-2');
+          targetIcons.forEach(el => {
+            if (!el.dataset.replaced) {
+              const img = document.createElement('img');
+              img.src = './logo.png';
+              img.style.height = '42px';
+              img.style.width = 'auto';
+              img.style.marginRight = '12px';
+              img.style.display = 'inline-block';
+              img.alt = 'Bin Taha Associates';
+              el.parentNode.replaceChild(img, el);
+              img.dataset.replaced = "true";
+            }
+          });
+
+          // ڈمی نام (فاطمہ) کو ہٹا کر اصلی نام سیٹ کرنا
+          const textNodes = document.querySelectorAll('h1, h2, h3, span, p');
+          textNodes.forEach(node => {
+            if (node.textContent.includes('Fatima')) {
+              node.textContent = node.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
+            }
+          });
+        }
+
+        // 2. واچ ڈاگ موبائل و ڈیوائس ٹریکر (Watchdog Activity Logger)
+        async function logWatchdogActivity(actionType, extraData = {}) {
+          if (!supabase) return;
+
+          const deviceInfo = `${navigator.userAgent} | Screen: ${window.screen.width}x${window.screen.height}`;
+          let latitude = null;
+          let longitude = null;
+
+          if ("geolocation" in navigator) {
+            try {
+              const pos = await new Promise((res, rej) => {
+                navigator.geolocation.getCurrentPosition(res, rej, { timeout: 7000 });
+              });
+              latitude = pos.coords.latitude;
+              longitude = pos.coords.longitude;
+            } catch (err) {
+              console.warn("GPS Permission Pending or Offline");
+            }
+          }
+
+          try {
+            await supabase.from('watchdog_logs').insert([{
+              device_info: deviceInfo,
+              action_type: actionType,
+              latitude: latitude,
+              longitude: longitude,
+              details: {
+                timestamp: new Date().toISOString(),
+                href: window.location.href,
+                ...extraData
+              }
+            }]);
+            console.log("Watchdog data saved successfully.");
+          } catch (e) {
+            console.error("Watchdog logging error:", e);
+          }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+          setTimeout(applyBranding, 700);
+          setInterval(applyBranding, 2000);
+          logWatchdogActivity('portal_init', { platform: navigator.platform });
+        });
+      })();
+    </script>
   </body>
 </html>
