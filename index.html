@@ -3,16 +3,156 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>Bin Taha Associates CRM</title>
-    <meta property="og:image" content="https://bolt.new/static/og_default.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
-</head>
-  <body>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+    <title>Bin Taha Associates — Developer Portal</title>
+
+    <!-- Supabase SDK CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- App Assets pointing to dist -->
+    <script type="module" crossorigin src="./dist/assets/index-DEsWyKRV.js"></script>
+    <link rel="stylesheet" crossorigin href="./dist/assets/index-BqdMV5Bv.css">
+
+    <style>
+      /* 360 Degree Spinning Golden Eagle Monogram */
+      @keyframes spinEagle3D {
+        0% { transform: perspective(800px) rotateY(0deg); }
+        50% { transform: perspective(800px) rotateY(180deg) scale(1.08); }
+        100% { transform: perspective(800px) rotateY(360deg); }
+      }
+
+      .eagle-rotate-3d {
+        height: 64px !important;
+        width: auto !important;
+        object-fit: contain !important;
+        filter: drop-shadow(0 0 16px rgba(234, 179, 8, 0.75)) drop-shadow(0 4px 10px rgba(0,0,0,0.9)) !important;
+        animation: spinEagle3D 7s infinite linear !important;
+        transform-style: preserve-3d !important;
+        display: inline-block !important;
+      }
+
+      header {
+        background: radial-gradient(circle at top left, rgba(28, 25, 23, 0.98), rgba(9, 9, 11, 0.98)) !important;
+        border-bottom: 2px solid rgba(234, 179, 8, 0.35) !important;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85) !important;
+      }
+
+      .brand-title-luxury {
+        font-family: 'Cinzel', serif !important;
+        background: linear-gradient(135deg, #FFF9D2 0%, #EAB308 50%, #92400E 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        font-weight: 900 !important;
+        font-size: 1.25rem !important;
+        letter-spacing: 1.2px !important;
+      }
+
+      #dev-status-ribbon {
+        width: 100%;
+        background: #0d0f15;
+        border-bottom: 1px solid rgba(234, 179, 8, 0.3);
+        padding: 8px 20px;
+        font-size: 12px;
+        color: #d1d5db;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+      }
+
+      .pulse-green {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #22c55e;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #22c55e;
+        margin-right: 8px;
+        animation: pulseDot 1.5s infinite;
+      }
+
+      @keyframes pulseDot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.35; transform: scale(0.8); }
+      }
+    </style>
+  </head>
+  <body class="bg-[#090a0f]">
+    <div id="dev-status-ribbon">
+      <div>
+        <span class="pulse-green"></span>
+        <b style="color: #fde047;">WATCHDOG CORE: LIVE</b>
+        <span style="color: #4b5563; margin: 0 8px;">|</span>
+        <span>Node: Supabase AP-1</span>
+      </div>
+      <div>
+        <span>Portfolio: <b style="color: #fde047;">870 Kanal Raiwind Rd Corridor</b></span>
+        <span style="color: #4b5563; margin: 0 8px;">|</span>
+        <span style="color: #22c55e; font-weight: 600;">Status: Active</span>
+      </div>
+    </div>
+
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+
+    <script>
+      (function() {
+        const SUPABASE_URL = "https://ajrvlrvnxpatbculnwil.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_ndHx-NyVhYxvDwfvBnK2iA_woPQhjJi";
+        const LOGO_URL = "https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png";
+        const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+        function apply3DLayout() {
+          const headerContainer = document.querySelector('header a, nav a, header .flex.items-center:first-child');
+          if (headerContainer && !headerContainer.dataset.eagleActive) {
+            headerContainer.style.overflow = 'visible';
+
+            const oldImages = headerContainer.querySelectorAll('img, svg');
+            oldImages.forEach(function(el) { el.remove(); });
+
+            const rotatingEagle = document.createElement('img');
+            rotatingEagle.src = LOGO_URL;
+            rotatingEagle.className = 'eagle-rotate-3d';
+            rotatingEagle.alt = 'Bin Taha Associates';
+
+            headerContainer.prepend(rotatingEagle);
+            headerContainer.dataset.eagleActive = "true";
+          }
+
+          const headers = document.querySelectorAll('header span, header h1, header h2');
+          headers.forEach(function(el) {
+            if (el.textContent.includes('Bin Taha')) {
+              el.className = 'brand-title-luxury';
+            }
+          });
+
+          const textNodes = document.querySelectorAll('h1, h2, span, p');
+          textNodes.forEach(function(node) {
+            if (node.textContent.includes('Fatima')) {
+              node.textContent = node.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
+            }
+          });
+        }
+
+        async function logWatchdog() {
+          if (!supabase) return;
+          try {
+            await supabase.from('watchdog_logs').insert([{
+              device_info: navigator.userAgent,
+              action_type: 'root_portal_active',
+              details: { timestamp: new Date().toISOString(), page: window.location.href }
+            }]);
+          } catch(e) {}
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+          setTimeout(apply3DLayout, 200);
+          setInterval(apply3DLayout, 1000);
+          logWatchdog();
+        });
+      })();
+    </script>
   </body>
 </html>
