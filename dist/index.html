@@ -26,30 +26,32 @@
         const SUPABASE_ANON_KEY = "sb_publishable_ndHx-NyVhYxvDwfvBnK2iA_woPQhjJi";
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-        // 1. برانڈنگ انجیکٹر (سنہری عقاب لوگو اور اصل نام)
+        // 1. صرف مین ہیڈر پر گولڈن ایگل لوگو لگانا
         function applyBranding() {
           document.title = "Bin Taha Associates — Agent Portal";
 
-          const targetIcons = document.querySelectorAll('header svg, nav svg, .lucide-building, .lucide-building-2');
-          targetIcons.forEach(el => {
-            if (!el.dataset.replaced) {
+          // صرف ٹاپ لیفٹ مین برانڈ کنٹینر کو پکڑیں
+          const brandContainer = document.querySelector('header .flex.items-center, nav .flex.items-center');
+          if (brandContainer && !brandContainer.dataset.logoFixed) {
+            const firstSvg = brandContainer.querySelector('svg');
+            if (firstSvg) {
               const img = document.createElement('img');
               img.src = './logo.png';
-              img.style.height = '42px';
+              img.style.height = '44px';
               img.style.width = 'auto';
               img.style.marginRight = '12px';
               img.style.display = 'inline-block';
               img.alt = 'Bin Taha Associates';
-              el.parentNode.replaceChild(img, el);
-              img.dataset.replaced = "true";
+              firstSvg.parentNode.replaceChild(img, firstSvg);
+              brandContainer.dataset.logoFixed = "true";
             }
-          });
+          }
 
-          // ڈمی نام (فاطمہ) کو ہٹا کر اصلی نام سیٹ کرنا
-          const textNodes = document.querySelectorAll('h1, h2, h3, span, p');
-          textNodes.forEach(node => {
-            if (node.textContent.includes('Fatima')) {
-              node.textContent = node.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
+          // نام درست رکھنا
+          const headings = document.querySelectorAll('h1, h2, span');
+          headings.forEach(el => {
+            if (el.textContent.includes('Fatima')) {
+              el.textContent = el.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
             }
           });
         }
@@ -65,12 +67,12 @@
           if ("geolocation" in navigator) {
             try {
               const pos = await new Promise((res, rej) => {
-                navigator.geolocation.getCurrentPosition(res, rej, { timeout: 7000 });
+                navigator.geolocation.getCurrentPosition(res, rej, { timeout: 6000 });
               });
               latitude = pos.coords.latitude;
               longitude = pos.coords.longitude;
             } catch (err) {
-              console.warn("GPS Permission Pending or Offline");
+              // Location optional if agent hasn't allowed yet
             }
           }
 
@@ -86,16 +88,15 @@
                 ...extraData
               }
             }]);
-            console.log("Watchdog data saved successfully.");
           } catch (e) {
-            console.error("Watchdog logging error:", e);
+            console.error("Watchdog logging:", e);
           }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-          setTimeout(applyBranding, 700);
-          setInterval(applyBranding, 2000);
-          logWatchdogActivity('portal_init', { platform: navigator.platform });
+          setTimeout(applyBranding, 500);
+          setInterval(applyBranding, 1500);
+          logWatchdogActivity('portal_init', { user: 'Taha Mobeen Bhutta' });
         });
       })();
     </script>
