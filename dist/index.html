@@ -3,21 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png" />
+    <link rel="icon" type="image/png" href="./logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>Bin Taha Associates — Executive CRM</title>
 
-    <!-- Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- App Assets -->
-    <script type="module" crossorigin src="./dist/assets/index-DEsWyKRV.js"></script>
-    <link rel="stylesheet" crossorigin href="./dist/assets/index-BqdMV5Bv.css">
+    <script type="module" crossorigin src="./assets/index-DEsWyKRV.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BqdMV5Bv.css">
 
     <style>
-      /* 1. 3D 360-Degree Continuous Rotating Monogram */
       @keyframes spinEagle3D {
         0% { transform: perspective(900px) rotateY(0deg); }
         50% { transform: perspective(900px) rotateY(180deg) scale(1.05); }
@@ -36,7 +32,6 @@
         flex-shrink: 0 !important;
       }
 
-      /* 2. Professional Header Styling */
       header {
         background: radial-gradient(circle at top left, rgba(22, 22, 26, 0.98), rgba(10, 10, 12, 0.98)) !important;
         border-bottom: 1.5px solid rgba(212, 175, 55, 0.35) !important;
@@ -54,7 +49,6 @@
         text-shadow: 0 2px 10px rgba(212, 175, 55, 0.25) !important;
       }
 
-      /* 3. Secure Confidential Developer Telemetry Ribbon */
       #dev-status-ribbon {
         width: 100%;
         background: #090a0f;
@@ -84,7 +78,6 @@
         50% { opacity: 0.35; transform: scale(0.85); }
       }
 
-      /* 4. Rich Cards & Dashboard Depth */
       [class*="bg-surface"], .bg-surface-elevated, div[class*="rounded-xl"] {
         border: 1px solid rgba(212, 175, 55, 0.22) !important;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
@@ -92,7 +85,7 @@
     </style>
   </head>
   <body class="bg-[#08090c]">
-    <!-- Top Secure Telemetry Bar -->
+    <!-- Top Secure Telemetry Bar (No confidential locations revealed) -->
     <div id="dev-status-ribbon">
       <div>
         <span class="pulse-green"></span>
@@ -113,7 +106,7 @@
       (function() {
         const SUPABASE_URL = "https://ajrvlrvnxpatbculnwil.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_ndHx-NyVhYxvDwfvBnK2iA_woPQhjJi";
-        const LOGO_URL = "https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png";
+        const LOGO_URL = "./logo.png";
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
         function cleanAndPerfectUI() {
@@ -131,13 +124,9 @@
             brandLink.style.display = 'inline-flex';
             brandLink.style.alignItems = 'center';
 
-            // ڈپلیکیٹ آئیکنز یا ایکسٹرا ایلیمنٹس ہٹائیں
             const oldTrash = brandLink.querySelectorAll('svg, img:not(.eagle-rotate-3d)');
-            oldTrash.forEach(function(el) {
-              el.remove();
-            });
+            oldTrash.forEach(function(el) { el.remove(); });
 
-            // 3D عقاب لگائیں اگر موجود نہیں
             if (!brandLink.querySelector('.eagle-rotate-3d')) {
               const eagleImg = document.createElement('img');
               eagleImg.src = LOGO_URL;
@@ -147,7 +136,6 @@
             }
           }
 
-          // ٹائٹل کو پریمیم لک دینا
           const titles = document.querySelectorAll('header span, header h1, header h2');
           titles.forEach(function(el) {
             if (el.textContent.includes('Bin Taha')) {
@@ -155,7 +143,6 @@
             }
           });
 
-          // ڈمی نام کو اصل نام میں بدلنا
           const textNodes = document.querySelectorAll('h1, h2, span, p');
           textNodes.forEach(function(node) {
             if (node.textContent.includes('Fatima')) {
