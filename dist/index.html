@@ -3,18 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png" />
+    <link rel="icon" type="image/png" href="./dist/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>Bin Taha Associates — Executive CRM</title>
 
+    <!-- Supabase SDK CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- App Assets -->
     <script type="module" crossorigin src="./dist/assets/index-DEsWyKRV.js"></script>
     <link rel="stylesheet" crossorigin href="./dist/assets/index-BqdMV5Bv.css">
 
     <style>
-      /* 3D 360-Degree Continuous Rotating Golden Eagle */
+      /* 3D Rotating Golden Eagle */
       @keyframes spinEagle3D {
         0% { transform: perspective(800px) rotateY(0deg); }
         50% { transform: perspective(800px) rotateY(180deg) scale(1.06); }
@@ -22,23 +25,26 @@
       }
 
       .eagle-rotate-3d {
-        height: 52px !important;
+        height: 50px !important;
         width: auto !important;
         object-fit: contain !important;
         filter: drop-shadow(0 0 14px rgba(212, 175, 55, 0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.9)) !important;
         animation: spinEagle3D 7s infinite linear !important;
         transform-style: preserve-3d !important;
         display: inline-block !important;
-        margin-right: 14px !important;
+        margin-right: 12px !important;
         flex-shrink: 0 !important;
       }
 
-      /* Header Flex Alignment Fix */
-      header > div, nav > div {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        width: 100% !important;
+      /* Khali dabba hide karne ka permanent rule */
+      header .h-10.w-10,
+      header .w-10.h-10,
+      header .rounded-lg:empty,
+      header [class*="bg-surface"]:empty {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
       }
 
       header {
@@ -58,7 +64,6 @@
         white-space: nowrap !important;
       }
 
-      /* Developer Status Bar */
       #dev-status-ribbon {
         width: 100%;
         background: #08090d;
@@ -87,21 +92,15 @@
         0%, 100% { opacity: 1; transform: scale(1); }
         50% { opacity: 0.35; transform: scale(0.85); }
       }
-
-      /* Dashboard Action Buttons Fix */
-      header button, nav button {
-        margin-left: 8px !important;
-      }
     </style>
   </head>
   <body class="bg-[#08090c]">
-    <!-- Top Secure Confidential Ribbon -->
     <div id="dev-status-ribbon">
       <div>
         <span class="pulse-green"></span>
         <b style="color: #f5d76e;">BIN TAHA WATCHDOG: ACTIVE</b>
         <span style="color: #4b5563; margin: 0 8px;">|</span>
-        <span>Secure Protocol: Encrypted Node AP-1</span>
+        <span>Supabase Node AP-1: Connected</span>
       </div>
       <div>
         <span>Portfolio: <b style="color: #e5e7eb;">Strategic Land Bank (Master Vault)</b></span>
@@ -114,34 +113,31 @@
 
     <script>
       (function() {
+        // Supabase Credentials
         const SUPABASE_URL = "https://ajrvlrvnxpatbculnwil.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_ndHx-NyVhYxvDwfvBnK2iA_woPQhjJi";
         const LOGO_URL = "https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png";
-        const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+        
+        let client = null;
+        if (window.supabase) {
+          client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
 
-        function alignExecutiveUI() {
-          // 1. Header Layout Alignment
-          const headerNav = document.querySelector('header, nav');
-          if (headerNav) {
-            const innerFlex = headerNav.querySelector('.flex.items-center.justify-between, .flex.justify-between');
-            if (innerFlex) {
-              innerFlex.style.width = '100%';
-              innerFlex.style.display = 'flex';
-              innerFlex.style.justifyContent = 'space-between';
-              innerFlex.style.alignItems = 'center';
+        // DOM Layout Cleanup Function
+        function cleanupHeaderDOM() {
+          // Khali dabba aur unwanted SVGs remove karna
+          const badBoxes = document.querySelectorAll('header div[class*="w-10"], header div[class*="h-10"], header div[class*="rounded-lg"]');
+          badBoxes.forEach(function(box) {
+            if (!box.querySelector('img.eagle-rotate-3d')) {
+              box.remove();
             }
-          }
+          });
 
-          // 2. Logo & Brand Lockup
+          // Brand Anchor mein sirf 3D eagle aur Title rakhna
           const brandLink = document.querySelector('header a, nav a, header .flex.items-center:first-child');
           if (brandLink) {
             brandLink.style.display = 'inline-flex';
             brandLink.style.alignItems = 'center';
-            brandLink.style.marginRight = 'auto';
-
-            // Unwanted overlapping boxes remove karna
-            const redundantItems = brandLink.querySelectorAll('svg, img:not(.eagle-rotate-3d)');
-            redundantItems.forEach(el => el.remove());
 
             if (!brandLink.querySelector('.eagle-rotate-3d')) {
               const eagle = document.createElement('img');
@@ -152,43 +148,46 @@
             }
           }
 
-          // 3. Gold Typography
+          // Gold text set karna
           const titles = document.querySelectorAll('header span, header h1, header h2');
-          titles.forEach(el => {
+          titles.forEach(function(el) {
             if (el.textContent.includes('Bin Taha')) {
               el.className = 'brand-title-luxury';
             }
           });
 
-          // 4. Personalized Master Name Check
+          // Name replace
           const textNodes = document.querySelectorAll('h1, h2, span, p');
-          textNodes.forEach(node => {
+          textNodes.forEach(function(node) {
             if (node.textContent.includes('Fatima')) {
               node.textContent = node.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
             }
           });
         }
 
-        // Supabase Activity Logger
-        async function logWatchdog() {
-          if (!supabase) return;
+        // Supabase Live Activity Logger
+        async function logToSupabase() {
+          if (!client) return;
           try {
-            await supabase.from('watchdog_logs').insert([{
+            await client.from('watchdog_logs').insert([{
               device_info: navigator.userAgent,
               action_type: 'executive_session_active',
-              details: { 
+              details: {
                 timestamp: new Date().toISOString(),
                 page: window.location.href,
-                status: 'Confidential Access'
+                status: 'Connected to Supabase AP-1'
               }
             }]);
-          } catch(e) {}
+            console.log("Supabase connected & logged successfully.");
+          } catch(e) {
+            console.error("Supabase sync:", e);
+          }
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-          alignExecutiveUI();
-          setInterval(alignExecutiveUI, 500);
-          logWatchdog();
+        window.addEventListener('DOMContentLoaded', function() {
+          cleanupHeaderDOM();
+          setInterval(cleanupHeaderDOM, 400);
+          logToSupabase();
         });
       })();
     </script>
