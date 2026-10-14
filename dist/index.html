@@ -92,7 +92,7 @@
     </style>
   </head>
   <body class="bg-[#08090c]">
-    <!-- Top Secure Telemetry Bar (No confidential locations revealed) -->
+    <!-- Top Secure Telemetry Bar -->
     <div id="dev-status-ribbon">
       <div>
         <span class="pulse-green"></span>
@@ -117,15 +117,22 @@
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
         function cleanAndPerfectUI() {
-          // 1. ہیڈر برانڈ ایریا کو مکمل درست کریں
+          // خالی باکس ختم کریں
+          const emptyBoxes = document.querySelectorAll('header [class*="rounded"], header [class*="bg-surface"], header [class*="border"]');
+          emptyBoxes.forEach(function(box) {
+            if (box.children.length === 0 && box.id !== 'dev-status-ribbon') {
+              box.style.display = 'none';
+            }
+          });
+
+          // ہیڈر برانڈ ایریا کو سیٹ کریں
           const brandLink = document.querySelector('header a, nav a, header .flex.items-center:first-child');
           if (brandLink) {
             brandLink.style.display = 'inline-flex';
             brandLink.style.alignItems = 'center';
-            brandLink.style.textDecoration = 'none';
 
-            // سارے پرانے خالی ڈبے، مسنگ امیجز اور SVG ہٹائیں
-            const oldTrash = brandLink.querySelectorAll('svg, img:not(.eagle-rotate-3d), [class*="rounded-lg"], [class*="bg-primary"], [class*="w-10"], [class*="h-10"]');
+            // ڈپلیکیٹ آئیکنز یا ایکسٹرا ایلیمنٹس ہٹائیں
+            const oldTrash = brandLink.querySelectorAll('svg, img:not(.eagle-rotate-3d)');
             oldTrash.forEach(function(el) {
               el.remove();
             });
@@ -140,7 +147,7 @@
             }
           }
 
-          // 2. ٹائٹل کو پریمیم لک دینا
+          // ٹائٹل کو پریمیم لک دینا
           const titles = document.querySelectorAll('header span, header h1, header h2');
           titles.forEach(function(el) {
             if (el.textContent.includes('Bin Taha')) {
@@ -148,7 +155,7 @@
             }
           });
 
-          // 3. ڈمی نام ہٹا کر آپ کا اصل نام سیٹ رکھنا
+          // ڈمی نام کو اصل نام میں بدلنا
           const textNodes = document.querySelectorAll('h1, h2, span, p');
           textNodes.forEach(function(node) {
             if (node.textContent.includes('Fatima')) {
@@ -157,12 +164,11 @@
           });
         }
 
-        // واچ ڈاگ ایکٹیویٹی لاگنگ
         async function logWatchdog() {
           if (!supabase) return;
           try {
             await supabase.from('watchdog_logs').insert([{
-              device_info: `${navigator.userAgent} | ${window.screen.width}x${window.screen.height}`,
+              device_info: navigator.userAgent,
               action_type: 'executive_portal_active',
               details: { 
                 timestamp: new Date().toISOString(),
@@ -175,7 +181,7 @@
 
         window.addEventListener('DOMContentLoaded', function() {
           cleanAndPerfectUI();
-          setInterval(cleanAndPerfectUI, 800);
+          setInterval(cleanAndPerfectUI, 500);
           logWatchdog();
         });
       })();
