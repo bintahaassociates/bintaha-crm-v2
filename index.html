@@ -3,32 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png" />
+    <link rel="icon" type="image/png" href="./dist/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>Bin Taha Associates — Executive CRM</title>
 
-    <!-- Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- App Assets -->
     <script type="module" crossorigin src="./dist/assets/index-DEsWyKRV.js"></script>
     <link rel="stylesheet" crossorigin href="./dist/assets/index-BqdMV5Bv.css">
 
     <style>
-      /* 1. 3D 360-Degree Continuous Rotating Monogram */
+      /* 3D Rotating Golden Eagle */
       @keyframes spinEagle3D {
-        0% { transform: perspective(900px) rotateY(0deg); }
-        50% { transform: perspective(900px) rotateY(180deg) scale(1.05); }
-        100% { transform: perspective(900px) rotateY(360deg); }
+        0% { transform: perspective(800px) rotateY(0deg); }
+        50% { transform: perspective(800px) rotateY(180deg) scale(1.06); }
+        100% { transform: perspective(800px) rotateY(360deg); }
       }
 
       .eagle-rotate-3d {
-        height: 48px !important;
+        height: 52px !important;
         width: auto !important;
         object-fit: contain !important;
-        filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.75)) drop-shadow(0 3px 6px rgba(0,0,0,0.9)) !important;
+        filter: drop-shadow(0 0 14px rgba(212, 175, 55, 0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.9)) !important;
         animation: spinEagle3D 7s infinite linear !important;
         transform-style: preserve-3d !important;
         display: inline-block !important;
@@ -36,7 +33,6 @@
         flex-shrink: 0 !important;
       }
 
-      /* 2. Professional Header Styling */
       header {
         background: radial-gradient(circle at top left, rgba(22, 22, 26, 0.98), rgba(10, 10, 12, 0.98)) !important;
         border-bottom: 1.5px solid rgba(212, 175, 55, 0.35) !important;
@@ -49,15 +45,14 @@
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
         font-weight: 900 !important;
-        font-size: 1.28rem !important;
+        font-size: 1.3rem !important;
         letter-spacing: 1.2px !important;
-        text-shadow: 0 2px 10px rgba(212, 175, 55, 0.25) !important;
       }
 
-      /* 3. Secure Confidential Developer Telemetry Ribbon */
+      /* Confidential Developer Ribbon */
       #dev-status-ribbon {
         width: 100%;
-        background: #090a0f;
+        background: #08090d;
         border-bottom: 1px solid rgba(212, 175, 55, 0.25);
         padding: 7px 24px;
         font-size: 11.5px;
@@ -83,20 +78,13 @@
         0%, 100% { opacity: 1; transform: scale(1); }
         50% { opacity: 0.35; transform: scale(0.85); }
       }
-
-      /* 4. Rich Cards & Dashboard Depth */
-      [class*="bg-surface"], .bg-surface-elevated, div[class*="rounded-xl"] {
-        border: 1px solid rgba(212, 175, 55, 0.22) !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55) !important;
-      }
     </style>
   </head>
   <body class="bg-[#08090c]">
-    <!-- Top Secure Telemetry Bar -->
     <div id="dev-status-ribbon">
       <div>
         <span class="pulse-green"></span>
-        <b style="color: #f5d76e; font-weight: 600;">BIN TAHA WATCHDOG: ACTIVE</b>
+        <b style="color: #f5d76e;">BIN TAHA WATCHDOG: ACTIVE</b>
         <span style="color: #4b5563; margin: 0 8px;">|</span>
         <span>Secure Protocol: Encrypted Node AP-1</span>
       </div>
@@ -116,48 +104,41 @@
         const LOGO_URL = "https://bintahaassociates.github.io/bintaha-crm-v2/dist/logo.png";
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-        function cleanAndPerfectUI() {
-          // خالی باکس ختم کریں
-          const emptyBoxes = document.querySelectorAll('header [class*="rounded"], header [class*="bg-surface"], header [class*="border"]');
-          emptyBoxes.forEach(function(box) {
-            if (box.children.length === 0 && box.id !== 'dev-status-ribbon') {
-              box.style.display = 'none';
-            }
-          });
+        function fixHeaderUI() {
+          const brandArea = document.querySelector('header a, nav a, header .flex.items-center:first-child');
+          if (brandArea) {
+            brandArea.style.display = 'inline-flex';
+            brandArea.style.alignItems = 'center';
 
-          // ہیڈر برانڈ ایریا کو سیٹ کریں
-          const brandLink = document.querySelector('header a, nav a, header .flex.items-center:first-child');
-          if (brandLink) {
-            brandLink.style.display = 'inline-flex';
-            brandLink.style.alignItems = 'center';
-
-            // ڈپلیکیٹ آئیکنز یا ایکسٹرا ایلیمنٹس ہٹائیں
-            const oldTrash = brandLink.querySelectorAll('svg, img:not(.eagle-rotate-3d)');
-            oldTrash.forEach(function(el) {
-              el.remove();
+            // Purana khali box aur purani images remove karna
+            const junkElements = brandArea.querySelectorAll('div[class*="rounded"], div[class*="w-10"], div[class*="h-10"], svg, img:not(.eagle-rotate-3d)');
+            junkElements.forEach(el => {
+              if (!el.textContent.includes('Bin Taha') && !el.textContent.includes('Agent')) {
+                el.remove();
+              }
             });
 
-            // 3D عقاب لگائیں اگر موجود نہیں
-            if (!brandLink.querySelector('.eagle-rotate-3d')) {
+            // 3D Eagle insert karna
+            if (!brandArea.querySelector('.eagle-rotate-3d')) {
               const eagleImg = document.createElement('img');
               eagleImg.src = LOGO_URL;
               eagleImg.className = 'eagle-rotate-3d';
               eagleImg.alt = 'Bin Taha Associates';
-              brandLink.prepend(eagleImg);
+              brandArea.prepend(eagleImg);
             }
           }
 
-          // ٹائٹل کو پریمیم لک دینا
-          const titles = document.querySelectorAll('header span, header h1, header h2');
-          titles.forEach(function(el) {
+          // Title ko Gold Styling dena
+          const headers = document.querySelectorAll('header span, header h1, header h2');
+          headers.forEach(el => {
             if (el.textContent.includes('Bin Taha')) {
               el.className = 'brand-title-luxury';
             }
           });
 
-          // ڈمی نام کو اصل نام میں بدلنا
+          // Dummy name replace karna
           const textNodes = document.querySelectorAll('h1, h2, span, p');
-          textNodes.forEach(function(node) {
+          textNodes.forEach(node => {
             if (node.textContent.includes('Fatima')) {
               node.textContent = node.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
             }
@@ -179,9 +160,9 @@
           } catch(e) {}
         }
 
-        window.addEventListener('DOMContentLoaded', function() {
-          cleanAndPerfectUI();
-          setInterval(cleanAndPerfectUI, 500);
+        window.addEventListener('DOMContentLoaded', () => {
+          fixHeaderUI();
+          setInterval(fixHeaderUI, 500);
           logWatchdog();
         });
       })();
