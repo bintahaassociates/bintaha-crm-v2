@@ -6,8 +6,8 @@
     <link rel="icon" type="image/png" href="https://bintahaassociates.github.io/bintaha-crm-v2/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>Bin Taha Associates — Agent Portal & Watchdog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <title>Bin Taha Associates — Elite Agent Portal & Watchdog</title>
 
     <!-- Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -15,11 +15,48 @@
     <!-- App Assets -->
     <script type="module" crossorigin src="./assets/index-DEsWyKRV.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BqdMV5Bv.css">
+
+    <style>
+      /* لگژری گولڈ برانڈنگ اور امبوس اسٹائلنگ */
+      .brand-eagle-logo {
+        height: 60px !important;
+        width: auto !important;
+        max-width: none !important;
+        object-fit: contain !important;
+        filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.45)) drop-shadow(0 2px 4px rgba(0,0,0,0.8)) !important;
+        transition: transform 0.3s ease, filter 0.3s ease;
+        display: inline-block !important;
+      }
+      .brand-eagle-logo:hover {
+        transform: scale(1.06);
+        filter: drop-shadow(0 0 16px rgba(245, 215, 110, 0.75)) !important;
+      }
+      .brand-title-gold {
+        font-family: 'Cinzel', serif !important;
+        background: linear-gradient(135deg, #FFF1B0 0%, #D4AF37 50%, #AA7C11 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800 !important;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+      }
+      /* ہیڈر کی امیرانہ گلاس لک */
+      header {
+        background: linear-gradient(180deg, rgba(20, 20, 22, 0.95) 0%, rgba(12, 12, 14, 0.98) 100%) !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+        backdrop-filter: blur(10px) !important;
+      }
+      /* کارڈز اور ڈیش بورڈ پر گولڈن ایکسنٹ */
+      .bg-surface-elevated, [class*="bg-surface"] {
+        border: 1px solid rgba(212, 175, 55, 0.15) !important;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
+      }
+    </style>
   </head>
-  <body>
+  <body class="bg-[#0b0c0e]">
     <div id="root"></div>
 
-    <!-- Bin Taha Associates Branding & Watchdog Mobile Tracking Engine -->
     <script>
       (function() {
         const SUPABASE_URL = "https://ajrvlrvnxpatbculnwil.supabase.co";
@@ -27,79 +64,67 @@
         const LOGO_URL = "https://bintahaassociates.github.io/bintaha-crm-v2/logo.png";
         const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
-        // 1. برانڈنگ: صرف مین ہیڈر پر سنہری عقاب کا لوگو لگانا
-        function applyBranding() {
-          document.title = "Bin Taha Associates — Agent Portal";
+        function upgradeBrandingLayout() {
+          document.title = "Bin Taha Associates — Elite Portal";
 
-          // صرف اوپر بائیں جانب کے مین لوگو ایریا کو منتخب کریں
-          const topLogoContainer = document.querySelector('header a, nav a, header .flex.items-center:first-child');
-          if (topLogoContainer && !topLogoContainer.dataset.logoDone) {
-            const oldSvg = topLogoContainer.querySelector('svg');
+          // مین ہیڈر برانڈ ایریا کو پکڑیں
+          const brandArea = document.querySelector('header a, nav a, header .flex.items-center:first-child');
+          if (brandArea && !brandArea.dataset.eagleMounted) {
+            brandArea.style.display = 'flex';
+            brandArea.style.alignItems = 'center';
+            brandArea.style.overflow = 'visible';
+
+            const oldSvg = brandArea.querySelector('svg');
+            const oldImg = brandArea.querySelector('img');
+            
+            const eagleImg = document.createElement('img');
+            eagleImg.src = LOGO_URL;
+            eagleImg.className = 'brand-eagle-logo';
+            eagleImg.alt = 'Bin Taha Associates';
+
             if (oldSvg) {
-              const img = document.createElement('img');
-              img.src = LOGO_URL;
-              img.style.height = '42px';
-              img.style.width = 'auto';
-              img.style.marginRight = '10px';
-              img.style.display = 'inline-block';
-              img.style.objectFit = 'contain';
-              img.alt = 'Bin Taha Associates';
-              oldSvg.parentNode.replaceChild(img, oldSvg);
-              topLogoContainer.dataset.logoDone = "true";
+              oldSvg.parentNode.replaceChild(eagleImg, oldSvg);
+            } else if (oldImg) {
+              oldImg.parentNode.replaceChild(eagleImg, oldImg);
+            } else {
+              brandArea.prepend(eagleImg);
             }
+
+            brandArea.dataset.eagleMounted = "true";
           }
 
-          // نام کی درستگی
-          const textNodes = document.querySelectorAll('h1, h2, span');
-          textNodes.forEach(node => {
-            if (node.textContent.includes('Fatima')) {
-              node.textContent = node.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
+          // فونٹس اور ناموں کو رائل گولڈ ٹچ دینا
+          const logoTexts = document.querySelectorAll('header span, header h1, header h2');
+          logoTexts.forEach(txt => {
+            if (txt.textContent.includes('Bin Taha')) {
+              txt.classList.add('brand-title-gold');
+            }
+          });
+
+          const headings = document.querySelectorAll('h1, h2, span, p');
+          headings.forEach(el => {
+            if (el.textContent.includes('Fatima')) {
+              el.textContent = el.textContent.replace(/Fatima/g, 'Taha Mobeen Bhutta');
             }
           });
         }
 
-        // 2. واچ ڈاگ موبائل و ڈیوائس ٹریکر (Watchdog Activity Logger)
-        async function logWatchdogActivity(actionType, extraData = {}) {
+        // واچ ڈاگ ایکٹیویٹی لاگنگ
+        async function logWatchdogActivity(actionType) {
           if (!supabase) return;
-
-          const deviceInfo = `${navigator.userAgent} | Screen: ${window.screen.width}x${window.screen.height}`;
-          let latitude = null;
-          let longitude = null;
-
-          if ("geolocation" in navigator) {
-            try {
-              const pos = await new Promise((res, rej) => {
-                navigator.geolocation.getCurrentPosition(res, rej, { timeout: 6000 });
-              });
-              latitude = pos.coords.latitude;
-              longitude = pos.coords.longitude;
-            } catch (err) {
-              // Location optional if not enabled yet
-            }
-          }
-
           try {
             await supabase.from('watchdog_logs').insert([{
-              device_info: deviceInfo,
+              device_info: `${navigator.userAgent} | ${window.screen.width}x${window.screen.height}`,
               action_type: actionType,
-              latitude: latitude,
-              longitude: longitude,
-              details: {
-                timestamp: new Date().toISOString(),
-                href: window.location.href,
-                ...extraData
-              }
+              details: { timestamp: new Date().toISOString(), url: window.location.href }
             }]);
-            console.log("Watchdog data saved successfully.");
-          } catch (e) {
-            console.error("Watchdog logging error:", e);
-          }
+          } catch(e) {}
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-          setTimeout(applyBranding, 400);
-          setInterval(applyBranding, 1500);
-          logWatchdogActivity('portal_init', { user: 'Taha Mobeen Bhutta' });
+          setTimeout(upgradeBrandingLayout, 300);
+          setInterval(upgradeBrandingLayout, 1200);
+          logWatchdogActivity('portal_lux_load');
         });
       })();
     </script>
